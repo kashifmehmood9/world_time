@@ -61,14 +61,14 @@ class _ChooseLocationState extends State<ChooseLocation> {
   @override
   Widget build(BuildContext context) {
     if (locations.isEmpty) {
-      return Scaffold(
+      return const Scaffold(
         body: Loading(),
       );
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Choose a Location"),
+        title: const Text("Choose a Location"),
         backgroundColor: Colors.grey,
         elevation: 0,
       ),

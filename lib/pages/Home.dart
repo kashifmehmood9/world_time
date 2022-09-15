@@ -37,7 +37,7 @@ class _HomeState extends State<Home> {
     print(data);
 
     if (data.isEmpty) {
-      return Scaffold(
+      return const Scaffold(
         body: Loading(),
       );
     }
@@ -63,15 +63,15 @@ class _HomeState extends State<Home> {
                       data = result as Map;
                     });
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.location_city,
                     color: Colors.grey,
                   ),
-                  label: Text(
+                  label: const Text(
                     "Edit location",
                     style: TextStyle(color: Colors.grey),
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
@@ -79,17 +79,17 @@ class _HomeState extends State<Home> {
                 children: [
                   Text(
                     data['location'],
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 28, letterSpacing: 2, color: Colors.white),
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Text(
                 data['time'],
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 60, letterSpacing: 3, color: Colors.white),
               )
             ],
