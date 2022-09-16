@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'loading.dart';
 import 'package:world_time/Services/world_time.dart';
 
@@ -11,11 +13,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Map data = {};
+  GeolocatorPlatform platform = GeolocatorPlatform.instance;
 
   @override
   void initState() {
     // TODO: implement initState
-    getInitialTime();
+    _getCurrentPosition();
   }
 
   void getInitialTime() async {
@@ -32,14 +35,28 @@ class _HomeState extends State<Home> {
     });
   }
 
+  Future<void> _getCurrentPosition() async {
+    await platform.requestPermission();
+    final position = await platform.getCurrentPosition();
+    print("location is $position");
+    List<Placemark> locations =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    print("location is $locations");
+
+    setState(() {
+      data = {
+        'location': locations.first.name,
+        'isDayTime': true,
+        'time': "123"
+      };
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     print(data);
-
     if (data.isEmpty) {
-      return const Scaffold(
-        body: Loading(),
-      );
+      return const Scaffold(body: Loading());
     }
     String backgroundImage = data['isDayTime'] ? 'day.png' : 'night.png';
     Color backgroundColor = data['isDayTime'] ? Colors.blue : Colors.indigo;
